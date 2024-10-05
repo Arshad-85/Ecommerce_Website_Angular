@@ -1,0 +1,36 @@
+<div class="row">
+    <div class="col-10 mx-auto">
+        <div class="row">
+            <div class="col-lg-3 col-md-4 col-sm-6 col-12 mt-4" *ngFor="let item of productItems">
+                <div class="card p-1">
+                    <img src="{{item.images[0]}}" class="card-img-top object-fit-cover" alt="" height="390px">
+                    <div class="position-absolute mt-4 rounded-3 p-1 fw-bolder text-white" [style.background] ="item.availableQty != 0 ? 'green':'red'">
+                        <p class="p-0 m-0">{{item.availableQty != 0 ? "Instock" : "Out Of Stock"}}</p>
+                    </div>
+                    <div class="card-body">
+                        <h4 class="card-tittle">{{item.name}}</h4>
+                        <a href="#" class="btn btn-info">Price {{item.price}}$</a>
+                        <div>
+                            <i class="fa-solid fa-star text-warning mt-3" *ngFor="let a of [].constructor(item.rating)"></i>
+                        </div>
+                        <p class="fs-6 mt-2">{{item.description}}</p>
+                        <div class="d-flex justify-content-between align-items-baseline">
+                            <button class="btn" [ngClass]="item.availableQty != 0 ? 'btn-primary':'bg-secondary-subtle'" [disabled]="item.availableQty == 0" (click)="AddProduct(item)" >Add to cart</button>
+                            <p class="text-primary pointer" data-bs-toggle="modal" data-bs-target="#staticBackdrop" (click)="selectedproduct = item" >View More</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div> 
+</div>
+
+  
+  <!-- Modal -->
+  <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-body">
+            <app-popup [item]="selectedproduct"></app-popup>
+        </div>
+    </div>
+  </div>
